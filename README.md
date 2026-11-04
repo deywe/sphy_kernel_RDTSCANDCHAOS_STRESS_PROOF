@@ -1,33 +1,33 @@
 # SPHY Framework - RDTSC & Chaos Stress Validation Suite
 
-Este repositório fornece o script oficial de validação empírica para o **Framework SPHY**. O objetivo deste utilitário é auditar datasets atômicos de alta precisão gerados sob condições extremas de estresse estocástico, comprovando a estabilidade e a coerência de fase do manifold sem expor a lógica proprietária do kernel subjacente.
+This repository provides the official empirical validation script for the **SPHY Framework**. The purpose of this utility is to audit high-precision atomic datasets generated under extreme stochastic stress conditions, proving the stability and phase coherence of the manifold without exposing the proprietary logic of the underlying kernel.
 
 ---
 
-## O Que Este Validador Faz
+## What This Validator Does
 
-O script `sphy_validator_rdtsc.py` realiza uma varredura estrita e de leitura (*read-only*) no dataset gerado (`sphy_ghz_chaos_rdtsc_dataset.csv`), executando as seguintes verificações de integridade em 12.000 frames de execução:
+The `sphy_validator_rdtsc.py` script performs a strict, read-only scan of the generated dataset (`sphy_ghz_chaos_rdtsc_dataset.csv`), executing the following integrity checks across 12,000 execution frames:
 
-1. **Auditoria de Coerência e Variância:** Valida se o manifold mantém 100.00% de coerência de fase e variância global zerada ($0.00$), mesmo sob injeção máxima de caos.
-2. **Estresse de Ruído Térmico e Bit-Flip ($P = 1.0$):** Confirma que o sistema absorve e neutraliza perturbações estocásticas e inversões de bits simuladas no hardware[cite: 1, 2].
-3. **Invariância de Memória:** Assegura que o consumo de memória permaneça estático e restrito à pilha (`6152 KB`, com alocação zero de *heap*), garantindo complexidade estrita $\mathcal{O}(1)$[cite: 1, 2].
-4. **Telemetria de Silício (RDTSC):** Processa os registros de ciclo de clock do processador travados em 2.49 GHz e timestamps de alta precisão (`CLOCK_MONOTONIC_RAW`)[cite: 1, 2].
-
----
-
-## Requisitos de Sistema
-
-O validador é escrito em Python puro e não requer dependências externas complexas para execução básica.
-
-* **Python:** Versão `3.6` ou superior.
-* **Sistema Operacional:** Compatível com ambientes Linux (testado e otimizado em Pop!_OS / Ubuntu)[cite: 1, 2].
+1. **Coherence and Variance Audit:** Validates that the manifold maintains 100.00% phase coherence and zero global variance ($0.00$), even under maximum chaos injection.
+2. **Thermal Noise and Bit-Flip Stress ($P = 1.0$):** Confirms that the system absorbs and neutralizes stochastic perturbations and simulated bit inversions in hardware[cite: 1, 2].
+3. **Memory Invariance:** Ensures that memory consumption remains static and restricted to the stack (`6152 KB`, with zero heap allocation), guaranteeing strict $\mathcal{O}(1)$ complexity[cite: 1, 2].
+4. **Silicon Telemetry (RDTSC):** Processes processor clock cycle registers locked at 2.49 GHz and high-precision timestamps (`CLOCK_MONOTONIC_RAW`)[cite: 1, 2].
 
 ---
 
-## Como Executar
+## System Requirements
 
-1. Certifique-se de que o arquivo de dataset gerado (`sphy_ghz_chaos_rdtsc_dataset.csv`) está presente no mesmo diretório do script[cite: 1, 2].
-2. Execute o validador via terminal:
+The validator is written in pure Python and requires no complex external dependencies for basic execution.
+
+* **Python:** Version `3.6` or higher.
+* **Operating System:** Compatible with Linux environments (tested and optimized on Pop!_OS / Ubuntu)[cite: 1, 2].
+
+---
+
+## How to Run
+
+1. Ensure that the generated dataset file (`sphy_ghz_chaos_rdtsc_dataset.csv`) is present in the same directory as the script[cite: 1, 2].
+2. Run the validator via terminal:
 
 ```bash
 python3 sphy_validator_rdtsc.py
